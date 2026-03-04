@@ -1,17 +1,17 @@
 import { Title } from '@mantine/core'
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/admin/registries')({
+export const Route = createFileRoute('/(app)/_layout/admin/users')({
   component: RouteComponent,
   staticData: {
-    navName: 'Registries',
+    navName: 'Users',
   },
 })
 
 function RouteComponent() {
   return (
     <div>
-      <Title order={3}>Registries</Title>
+      <Title order={3}>Users</Title>
     </div>
   )
 }

@@ -2,7 +2,7 @@ import { Title } from '@mantine/core'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute(
-  '/admin/replications_/$replicationId/executions',
+  '/(app)/_layout/admin/replications_/$replicationId/executions',
 )({
   component: RouteComponent,
 })

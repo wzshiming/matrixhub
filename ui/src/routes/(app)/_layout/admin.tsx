@@ -1,9 +1,8 @@
 import {
-  AppShell,
+  Group,
   NavLink,
   ScrollArea,
   Stack,
-  Title,
 } from '@mantine/core'
 import {
   createFileRoute,
@@ -13,10 +12,12 @@ import {
   useRouterState,
 } from '@tanstack/react-router'
 import { useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
 
-export const Route = createFileRoute('/admin')({
+export const Route = createFileRoute('/(app)/_layout/admin')({
   component: AdminLayout,
+  staticData: {
+    navName: 'Admin',
+  },
 })
 
 function AdminNavbar() {
@@ -25,7 +26,7 @@ function AdminNavbar() {
     select: state => state.matches.map(match => match.routeId),
   })
 
-  const adminRoute = router.routesById['/admin']
+  const adminRoute = router.routesById['/(app)/_layout/admin']
   const navRoutes = useMemo(() => {
     const children = adminRoute?.children
 
@@ -39,7 +40,7 @@ function AdminNavbar() {
   }, [adminRoute])
 
   return (
-    <ScrollArea h="100%">
+    <ScrollArea>
       <Stack gap={0}>
         {navRoutes.map((route) => {
           const isActive = activeRouteIds.includes(route.id)
@@ -60,30 +61,27 @@ function AdminNavbar() {
 }
 
 function AdminLayout() {
-  const { t } = useTranslation()
-
   return (
-    <AppShell
-      padding="md"
-      header={{
-        height: 60,
-      }}
-      navbar={{
-        width: 200,
-        breakpoint: '',
-      }}
+    <Group
+      align="flex-start"
+      wrap="nowrap"
+      gap={0}
+      style={{ height: '100%' }}
     >
-      <AppShell.Header p="md">
-        <Title order={2}>{t('translation.title', 'Matrix Hub')}</Title>
-      </AppShell.Header>
-
-      <AppShell.Navbar>
+      <nav style={{
+        width: 200,
+        flexShrink: 0,
+      }}
+      >
         <AdminNavbar />
-      </AppShell.Navbar>
-
-      <AppShell.Main>
+      </nav>
+      <div style={{
+        flex: 1,
+        padding: 'var(--mantine-spacing-md)',
+      }}
+      >
         <Outlet />
-      </AppShell.Main>
-    </AppShell>
+      </div>
+    </Group>
   )
 }
