@@ -484,6 +484,18 @@
         },
         "organization": {
           "type": "string"
+        },
+        "modelCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "datasetCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },

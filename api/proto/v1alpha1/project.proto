@@ -99,6 +99,9 @@ message GetProjectResponse {
   ProjectType type = 2;
   string registry_url = 3;
   string organization = 4;
+  uint32 model_count = 5;
+  uint32 dataset_count = 6;
+  google.protobuf.Timestamp updated_at = 7;
 }
 
 message DeleteProjectRequest {

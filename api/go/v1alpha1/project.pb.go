@@ -402,6 +402,9 @@ type GetProjectResponse struct {
 	Type          ProjectType            `protobuf:"varint,2,opt,name=type,proto3,enum=matrixhub.v1alpha1.ProjectType" json:"type,omitempty"`
 	RegistryUrl   string                 `protobuf:"bytes,3,opt,name=registry_url,json=registryUrl,proto3" json:"registry_url,omitempty"`
 	Organization  string                 `protobuf:"bytes,4,opt,name=organization,proto3" json:"organization,omitempty"`
+	ModelCount    uint32                 `protobuf:"varint,5,opt,name=model_count,json=modelCount,proto3" json:"model_count,omitempty"`
+	DatasetCount  uint32                 `protobuf:"varint,6,opt,name=dataset_count,json=datasetCount,proto3" json:"dataset_count,omitempty"`
+	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -462,6 +465,27 @@ func (x *GetProjectResponse) GetOrganization() string {
 		return x.Organization
 	}
 	return ""
+}
+
+func (x *GetProjectResponse) GetModelCount() uint32 {
+	if x != nil {
+		return x.ModelCount
+	}
+	return 0
+}
+
+func (x *GetProjectResponse) GetDatasetCount() uint32 {
+	if x != nil {
+		return x.DatasetCount
+	}
+	return 0
+}
+
+func (x *GetProjectResponse) GetUpdatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return nil
 }
 
 type DeleteProjectRequest struct {
@@ -1276,12 +1300,17 @@ const file_v1alpha1_project_proto_rawDesc = "" +
 	"pagination\x18\x02 \x01(\v2\x1e.matrixhub.v1alpha1.PaginationR\n" +
 	"pagination\"0\n" +
 	"\x11GetProjectRequest\x12\x1b\n" +
-	"\x04name\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\x04name\"\xa4\x01\n" +
+	"\x04name\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\x04name\"\xa5\x02\n" +
 	"\x12GetProjectResponse\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x123\n" +
 	"\x04type\x18\x02 \x01(\x0e2\x1f.matrixhub.v1alpha1.ProjectTypeR\x04type\x12!\n" +
 	"\fregistry_url\x18\x03 \x01(\tR\vregistryUrl\x12\"\n" +
-	"\forganization\x18\x04 \x01(\tR\forganization\"3\n" +
+	"\forganization\x18\x04 \x01(\tR\forganization\x12\x1f\n" +
+	"\vmodel_count\x18\x05 \x01(\rR\n" +
+	"modelCount\x12#\n" +
+	"\rdataset_count\x18\x06 \x01(\rR\fdatasetCount\x129\n" +
+	"\n" +
+	"updated_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"3\n" +
 	"\x14DeleteProjectRequest\x12\x1b\n" +
 	"\x04name\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\x04name\"\x17\n" +
 	"\x15DeleteProjectResponse\"h\n" +
@@ -1408,42 +1437,43 @@ var file_v1alpha1_project_proto_depIdxs = []int32{
 	12, // 3: matrixhub.v1alpha1.ListProjectsResponse.projects:type_name -> matrixhub.v1alpha1.Project
 	24, // 4: matrixhub.v1alpha1.ListProjectsResponse.pagination:type_name -> matrixhub.v1alpha1.Pagination
 	0,  // 5: matrixhub.v1alpha1.GetProjectResponse.type:type_name -> matrixhub.v1alpha1.ProjectType
-	0,  // 6: matrixhub.v1alpha1.UpdateProjectRequest.type:type_name -> matrixhub.v1alpha1.ProjectType
-	0,  // 7: matrixhub.v1alpha1.Project.type:type_name -> matrixhub.v1alpha1.ProjectType
-	25, // 8: matrixhub.v1alpha1.Project.updated_at:type_name -> google.protobuf.Timestamp
-	15, // 9: matrixhub.v1alpha1.ListProjectMembersResponse.members:type_name -> matrixhub.v1alpha1.ProjectMember
-	24, // 10: matrixhub.v1alpha1.ListProjectMembersResponse.pagination:type_name -> matrixhub.v1alpha1.Pagination
-	1,  // 11: matrixhub.v1alpha1.ProjectMember.member_type:type_name -> matrixhub.v1alpha1.MemberType
-	26, // 12: matrixhub.v1alpha1.ProjectMember.role:type_name -> matrixhub.v1alpha1.ProjectRoleType
-	1,  // 13: matrixhub.v1alpha1.AddProjectMemberWithRoleRequest.member_type:type_name -> matrixhub.v1alpha1.MemberType
-	26, // 14: matrixhub.v1alpha1.AddProjectMemberWithRoleRequest.role:type_name -> matrixhub.v1alpha1.ProjectRoleType
-	19, // 15: matrixhub.v1alpha1.RemoveProjectMembersRequest.members:type_name -> matrixhub.v1alpha1.MemberToRemove
-	1,  // 16: matrixhub.v1alpha1.MemberToRemove.member_type:type_name -> matrixhub.v1alpha1.MemberType
-	1,  // 17: matrixhub.v1alpha1.UpdateProjectMemberRoleRequest.member_type:type_name -> matrixhub.v1alpha1.MemberType
-	26, // 18: matrixhub.v1alpha1.UpdateProjectMemberRoleRequest.role:type_name -> matrixhub.v1alpha1.ProjectRoleType
-	2,  // 19: matrixhub.v1alpha1.Projects.CreateProject:input_type -> matrixhub.v1alpha1.CreateProjectRequest
-	4,  // 20: matrixhub.v1alpha1.Projects.ListProjects:input_type -> matrixhub.v1alpha1.ListProjectsRequest
-	6,  // 21: matrixhub.v1alpha1.Projects.GetProject:input_type -> matrixhub.v1alpha1.GetProjectRequest
-	10, // 22: matrixhub.v1alpha1.Projects.UpdateProject:input_type -> matrixhub.v1alpha1.UpdateProjectRequest
-	8,  // 23: matrixhub.v1alpha1.Projects.DeleteProject:input_type -> matrixhub.v1alpha1.DeleteProjectRequest
-	13, // 24: matrixhub.v1alpha1.Projects.ListProjectMembers:input_type -> matrixhub.v1alpha1.ListProjectMembersRequest
-	16, // 25: matrixhub.v1alpha1.Projects.AddProjectMemberWithRole:input_type -> matrixhub.v1alpha1.AddProjectMemberWithRoleRequest
-	18, // 26: matrixhub.v1alpha1.Projects.RemoveProjectMembers:input_type -> matrixhub.v1alpha1.RemoveProjectMembersRequest
-	21, // 27: matrixhub.v1alpha1.Projects.UpdateProjectMemberRole:input_type -> matrixhub.v1alpha1.UpdateProjectMemberRoleRequest
-	3,  // 28: matrixhub.v1alpha1.Projects.CreateProject:output_type -> matrixhub.v1alpha1.CreateProjectResponse
-	5,  // 29: matrixhub.v1alpha1.Projects.ListProjects:output_type -> matrixhub.v1alpha1.ListProjectsResponse
-	7,  // 30: matrixhub.v1alpha1.Projects.GetProject:output_type -> matrixhub.v1alpha1.GetProjectResponse
-	11, // 31: matrixhub.v1alpha1.Projects.UpdateProject:output_type -> matrixhub.v1alpha1.UpdateProjectResponse
-	9,  // 32: matrixhub.v1alpha1.Projects.DeleteProject:output_type -> matrixhub.v1alpha1.DeleteProjectResponse
-	14, // 33: matrixhub.v1alpha1.Projects.ListProjectMembers:output_type -> matrixhub.v1alpha1.ListProjectMembersResponse
-	17, // 34: matrixhub.v1alpha1.Projects.AddProjectMemberWithRole:output_type -> matrixhub.v1alpha1.AddProjectMemberWithRoleResponse
-	20, // 35: matrixhub.v1alpha1.Projects.RemoveProjectMembers:output_type -> matrixhub.v1alpha1.RemoveProjectMembersResponse
-	22, // 36: matrixhub.v1alpha1.Projects.UpdateProjectMemberRole:output_type -> matrixhub.v1alpha1.UpdateProjectMemberRoleResponse
-	28, // [28:37] is the sub-list for method output_type
-	19, // [19:28] is the sub-list for method input_type
-	19, // [19:19] is the sub-list for extension type_name
-	19, // [19:19] is the sub-list for extension extendee
-	0,  // [0:19] is the sub-list for field type_name
+	25, // 6: matrixhub.v1alpha1.GetProjectResponse.updated_at:type_name -> google.protobuf.Timestamp
+	0,  // 7: matrixhub.v1alpha1.UpdateProjectRequest.type:type_name -> matrixhub.v1alpha1.ProjectType
+	0,  // 8: matrixhub.v1alpha1.Project.type:type_name -> matrixhub.v1alpha1.ProjectType
+	25, // 9: matrixhub.v1alpha1.Project.updated_at:type_name -> google.protobuf.Timestamp
+	15, // 10: matrixhub.v1alpha1.ListProjectMembersResponse.members:type_name -> matrixhub.v1alpha1.ProjectMember
+	24, // 11: matrixhub.v1alpha1.ListProjectMembersResponse.pagination:type_name -> matrixhub.v1alpha1.Pagination
+	1,  // 12: matrixhub.v1alpha1.ProjectMember.member_type:type_name -> matrixhub.v1alpha1.MemberType
+	26, // 13: matrixhub.v1alpha1.ProjectMember.role:type_name -> matrixhub.v1alpha1.ProjectRoleType
+	1,  // 14: matrixhub.v1alpha1.AddProjectMemberWithRoleRequest.member_type:type_name -> matrixhub.v1alpha1.MemberType
+	26, // 15: matrixhub.v1alpha1.AddProjectMemberWithRoleRequest.role:type_name -> matrixhub.v1alpha1.ProjectRoleType
+	19, // 16: matrixhub.v1alpha1.RemoveProjectMembersRequest.members:type_name -> matrixhub.v1alpha1.MemberToRemove
+	1,  // 17: matrixhub.v1alpha1.MemberToRemove.member_type:type_name -> matrixhub.v1alpha1.MemberType
+	1,  // 18: matrixhub.v1alpha1.UpdateProjectMemberRoleRequest.member_type:type_name -> matrixhub.v1alpha1.MemberType
+	26, // 19: matrixhub.v1alpha1.UpdateProjectMemberRoleRequest.role:type_name -> matrixhub.v1alpha1.ProjectRoleType
+	2,  // 20: matrixhub.v1alpha1.Projects.CreateProject:input_type -> matrixhub.v1alpha1.CreateProjectRequest
+	4,  // 21: matrixhub.v1alpha1.Projects.ListProjects:input_type -> matrixhub.v1alpha1.ListProjectsRequest
+	6,  // 22: matrixhub.v1alpha1.Projects.GetProject:input_type -> matrixhub.v1alpha1.GetProjectRequest
+	10, // 23: matrixhub.v1alpha1.Projects.UpdateProject:input_type -> matrixhub.v1alpha1.UpdateProjectRequest
+	8,  // 24: matrixhub.v1alpha1.Projects.DeleteProject:input_type -> matrixhub.v1alpha1.DeleteProjectRequest
+	13, // 25: matrixhub.v1alpha1.Projects.ListProjectMembers:input_type -> matrixhub.v1alpha1.ListProjectMembersRequest
+	16, // 26: matrixhub.v1alpha1.Projects.AddProjectMemberWithRole:input_type -> matrixhub.v1alpha1.AddProjectMemberWithRoleRequest
+	18, // 27: matrixhub.v1alpha1.Projects.RemoveProjectMembers:input_type -> matrixhub.v1alpha1.RemoveProjectMembersRequest
+	21, // 28: matrixhub.v1alpha1.Projects.UpdateProjectMemberRole:input_type -> matrixhub.v1alpha1.UpdateProjectMemberRoleRequest
+	3,  // 29: matrixhub.v1alpha1.Projects.CreateProject:output_type -> matrixhub.v1alpha1.CreateProjectResponse
+	5,  // 30: matrixhub.v1alpha1.Projects.ListProjects:output_type -> matrixhub.v1alpha1.ListProjectsResponse
+	7,  // 31: matrixhub.v1alpha1.Projects.GetProject:output_type -> matrixhub.v1alpha1.GetProjectResponse
+	11, // 32: matrixhub.v1alpha1.Projects.UpdateProject:output_type -> matrixhub.v1alpha1.UpdateProjectResponse
+	9,  // 33: matrixhub.v1alpha1.Projects.DeleteProject:output_type -> matrixhub.v1alpha1.DeleteProjectResponse
+	14, // 34: matrixhub.v1alpha1.Projects.ListProjectMembers:output_type -> matrixhub.v1alpha1.ListProjectMembersResponse
+	17, // 35: matrixhub.v1alpha1.Projects.AddProjectMemberWithRole:output_type -> matrixhub.v1alpha1.AddProjectMemberWithRoleResponse
+	20, // 36: matrixhub.v1alpha1.Projects.RemoveProjectMembers:output_type -> matrixhub.v1alpha1.RemoveProjectMembersResponse
+	22, // 37: matrixhub.v1alpha1.Projects.UpdateProjectMemberRole:output_type -> matrixhub.v1alpha1.UpdateProjectMemberRoleResponse
+	29, // [29:38] is the sub-list for method output_type
+	20, // [20:29] is the sub-list for method input_type
+	20, // [20:20] is the sub-list for extension type_name
+	20, // [20:20] is the sub-list for extension extendee
+	0,  // [0:20] is the sub-list for field type_name
 }
 
 func init() { file_v1alpha1_project_proto_init() }
