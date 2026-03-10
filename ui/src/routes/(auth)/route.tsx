@@ -11,6 +11,7 @@ import {
   Link, linkOptions,
   Outlet, useMatchRoute,
 } from '@tanstack/react-router'
+import { useTranslation } from 'react-i18next'
 
 import ArrowDownIcon from '@/assets/svgs/arrow-down.svg?react'
 import DatasetIcon from '@/assets/svgs/dataset.svg?react'
@@ -20,7 +21,6 @@ import ModelIcon from '@/assets/svgs/model.svg?react'
 import ProjectIcon from '@/assets/svgs/project.svg?react'
 import SettingsIcon from '@/assets/svgs/settings.svg?react'
 import UserIcon from '@/assets/svgs/user.svg?react'
-import i18n from '@/i18n'
 
 export const Route = createFileRoute('/(auth)')({
   component: AppLayout,
@@ -48,23 +48,24 @@ function AppLogo() {
 }
 
 function AppNavbar() {
+  const { t } = useTranslation()
   const navRoutes = [
     {
-      label: i18n.t('nav.models'),
+      label: t('nav.models'),
       icon: ModelIcon,
       ...linkOptions({
         to: '/models',
       }),
     },
     {
-      label: i18n.t('nav.datasets'),
+      label: t('nav.datasets'),
       icon: DatasetIcon,
       ...linkOptions({
         to: '/datasets',
       }),
     },
     {
-      label: i18n.t('nav.projectManagement'),
+      label: t('nav.projectManagement'),
       icon: ProjectIcon,
       ...linkOptions({
         to: '/projects',
@@ -112,30 +113,31 @@ function AppNavbar() {
 }
 
 function AccountMenu() {
+  const { t } = useTranslation()
   const menuItems = [
     {
-      label: i18n.t('nav.profile'),
+      label: t('nav.profile'),
       icon: UserIcon,
       ...linkOptions({
         to: '/profile',
       }),
     },
     {
-      label: i18n.t('nav.createModel'),
+      label: t('nav.createModel'),
       icon: ModelIcon,
       ...linkOptions({
         to: '/models/new',
       }),
     },
     {
-      label: i18n.t('nav.createDataset'),
+      label: t('nav.createDataset'),
       icon: DatasetIcon,
       ...linkOptions({
         to: '/datasets/new',
       }),
     },
     {
-      label: i18n.t('nav.settings'),
+      label: t('nav.settings'),
       icon: SettingsIcon,
       ...linkOptions({
         to: '/admin',
@@ -179,7 +181,7 @@ function AccountMenu() {
         <Menu.Item
           leftSection={<LogOutIcon width={16} />}
         >
-          {i18n.t('nav.logout')}
+          {t('nav.logout')}
         </Menu.Item>
       </Menu.Dropdown>
     </Menu>
