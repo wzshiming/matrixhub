@@ -1,6 +1,7 @@
 import {
   AppShell,
   Avatar,
+  Box,
   Flex,
   Group, Menu,
   NavLink,
@@ -21,6 +22,13 @@ import ModelIcon from '@/assets/svgs/model.svg?react'
 import ProjectIcon from '@/assets/svgs/project.svg?react'
 import SettingsIcon from '@/assets/svgs/settings.svg?react'
 import UserIcon from '@/assets/svgs/user.svg?react'
+import { Route as DatasetsRoute } from '@/routes/(auth)/(app)/datasets'
+import { Route as CreateDatasetRoute } from '@/routes/(auth)/(app)/datasets/new'
+import { Route as ModelsRoute } from '@/routes/(auth)/(app)/models'
+import { Route as CreateModelRoute } from '@/routes/(auth)/(app)/models/new'
+import { Route as ProfileRoute } from '@/routes/(auth)/(app)/profile'
+import { Route as ProjectsRoute } from '@/routes/(auth)/(app)/projects'
+import { Route as AdminRoute } from '@/routes/(auth)/admin'
 
 export const Route = createFileRoute('/(auth)')({
   component: AppLayout,
@@ -32,12 +40,14 @@ function AppLogo() {
       component={Link}
       to="/"
     >
-      <Group gap={8}>
+      <Group
+        gap={8}
+        wrap="nowrap"
+      >
         <LogoIcon width={36} />
         <Text
           fw={600}
-          size="20px"
-          lh="28px"
+          size="xl"
           c="#000"
         >
           MatrixHub
@@ -49,34 +59,28 @@ function AppLogo() {
 
 function AppNavbar() {
   const { t } = useTranslation()
-  const navRoutes = [
+  const navRoutes = linkOptions([
     {
       label: t('nav.models'),
       icon: ModelIcon,
-      ...linkOptions({
-        to: '/models',
-      }),
+      to: ModelsRoute.to,
     },
     {
       label: t('nav.datasets'),
       icon: DatasetIcon,
-      ...linkOptions({
-        to: '/datasets',
-      }),
+      to: DatasetsRoute.to,
     },
     {
       label: t('nav.projectManagement'),
       icon: ProjectIcon,
-      ...linkOptions({
-        to: '/projects',
-      }),
+      to: ProjectsRoute.to,
     },
-  ]
+  ])
   const matchRoute = useMatchRoute()
 
   return (
     <Group
-      gap={16}
+      gap="var(--mantine-spacing-md)"
       wrap="nowrap"
     >
       {navRoutes.map((route) => {
@@ -97,12 +101,15 @@ function AppNavbar() {
               root: {
                 width: 'auto',
                 height: '32px',
-                borderRadius: '16px',
+                borderRadius: 'var(--mantine-radius-lg)',
                 fontWeight: '600',
-                color: isActive ? '#15AABF' : '#868E96',
+                color: isActive ? 'var(--nl-color)' : '#868E96',
               },
               section: {
                 marginInlineEnd: '8px',
+              },
+              label: {
+                whiteSpace: 'nowrap',
               },
             }}
           />
@@ -114,36 +121,28 @@ function AppNavbar() {
 
 function AccountMenu() {
   const { t } = useTranslation()
-  const menuItems = [
+  const menuItems = linkOptions([
     {
       label: t('nav.profile'),
       icon: UserIcon,
-      ...linkOptions({
-        to: '/profile',
-      }),
+      to: ProfileRoute.to,
     },
     {
       label: t('nav.createModel'),
       icon: ModelIcon,
-      ...linkOptions({
-        to: '/models/new',
-      }),
+      to: CreateModelRoute.to,
     },
     {
       label: t('nav.createDataset'),
       icon: DatasetIcon,
-      ...linkOptions({
-        to: '/datasets/new',
-      }),
+      to: CreateDatasetRoute.to,
     },
     {
       label: t('nav.settings'),
       icon: SettingsIcon,
-      ...linkOptions({
-        to: '/admin',
-      }),
+      to: AdminRoute.to,
     },
-  ]
+  ])
 
   return (
     <Menu
@@ -152,7 +151,10 @@ function AccountMenu() {
     >
       <Menu.Target>
         <UnstyledButton>
-          <Group gap={12}>
+          <Group
+            gap="var(--mantine-spacing-sm)"
+            wrap="nowrap"
+          >
             <Avatar
               radius="xl"
               size={24}
@@ -221,10 +223,20 @@ function AppLayout() {
         styles={{
           main: {
             height: 'calc(100vh - var(--app-shell-header-height))',
+            padding: '0 32px',
           },
         }}
       >
-        <Outlet />
+        <Box
+          w="100%"
+          h="100%"
+          maw="1760px"
+          miw="1100px"
+          pt="20px"
+          mx="auto"
+        >
+          <Outlet />
+        </Box>
       </AppShell.Main>
     </AppShell>
   )
