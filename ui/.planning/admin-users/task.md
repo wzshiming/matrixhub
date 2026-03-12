@@ -6,6 +6,7 @@
 
 - Figma: figma link / figma screenshot 
 - Prototype / screenshot: `image.png`
+- API：
 - Requirements document (if Figma, screenshots, and the code context are already sufficient, this does not need to be provided separately):
 - Other inputs:
 

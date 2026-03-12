@@ -28,7 +28,7 @@ Default project rules, collaboration conventions, and example materials live in 
 - `ui/agents/rules/*`: core project rules
 - `ui/agents/collaboration/*`: collaboration checklists and review conventions
 - `ui/agents/examples/*`: real working examples
-- If workflow skills are added later, put them under `ui/agents/skills/*`
+- Workflow skills live under `.agents/skills/*`
 
 Temporary working materials for a specific feature task may live under `ui/.planning/<task-slug>/`.
 

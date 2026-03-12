@@ -10,6 +10,9 @@ This example shows how to combine the requirement, `figma`, existing code, and A
 - Figma:
   - Confirms the visual hierarchy: header, action area, table or list body, and empty state area
   - Confirms layout rhythm: spacing between header and list, action button placement on the top right, and list items shown as either table rows or cards
+  - If the design includes reusable SVG assets that should live in the repo, call `$import-figma-svg` to extract asset URLs from Figma MCP and download them
+  - For committed UI assets in this repo, store downloaded SVGs under `src/assets/svgs`; for temporary comparisons, store them under `.planning/<task>/`
+  - If the target UI already uses SVG React components, note that expected import style in the page plan, for example `?react`
 - Related existing pages:
   - `src/routes/(auth)/(app)/projects/index.tsx`
   - `src/routes/(auth)/(app)/models/index.tsx`

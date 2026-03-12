@@ -11,6 +11,7 @@ Use this checklist to quickly judge whether a change still follows the current U
 - If the change includes a data table, does it use the project's wrapped table component or adapter instead of wiring the table library directly in the page?
 - Was new user-facing copy added to locale files?
 - Does the implementation continue the existing Mantine and project patterns?
+- If colors or visual states were adjusted, does the change rely on component semantics first, then semantic tokens, instead of copying Figma colors directly?
 - If the change created or changed a shared wrapper, shared component convention, or other stable project pattern, were the relevant `ui/agents/` docs updated in the same change?
 
 ## When Documentation Should Be Updated

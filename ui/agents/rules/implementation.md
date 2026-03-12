@@ -28,8 +28,20 @@ This document combines the current UI stack and the key rules around Mantine, Ta
 - Prefer Mantine layout primitives such as `AppShell`, `Stack`, `Group`, `Flex`, and `Box`
 - Prefer `Text` and `Title` for text rendering
 - Prefer Mantine props and theme tokens for spacing
+- When styling Mantine components that already express state or hierarchy, first use the component's own semantics and stateful API before adding explicit colors
+- Prefer semantic Mantine color tokens or CSS variables such as `var(--mantine-primary-color-filled)`, `var(--mantine-primary-color-light)`, `var(--mantine-color-text)`, and `var(--mantine-color-dimmed)` over palette-index references like `var(--mantine-color-cyan-6)` or `gray.7`
+- If the design system already defines an exact semantic token for the target color, use that exact project token first instead of approximating with a nearby Mantine semantic token
+- Only fall back to palette-index color references when no semantic Mantine token matches the design intent, because indexed colors adapt poorly when dark theme support is added later
+- When implementing from Figma, decide color in this order: component-native semantics, existing semantic tokens, then explicit Figma-driven color overrides only if the design intent is still not represented
+- Do not copy Figma colors mechanically when the same intent is already covered by component defaults or existing semantic tokens
 - Do not pile up raw `div`s or inline styles where Mantine already covers the use case
 - Do not hardcode colors, font sizes, or spacing values as the default approach
+
+## Figma Assets
+
+- Committed SVG assets belong under `src/assets/svgs`
+- Do not leave reusable SVG markup inline in route or component files unless the SVG must be generated dynamically
+- Temporary exports and comparisons may live under `.planning/<task>/`
 
 ## Router
 
@@ -99,9 +111,13 @@ function CreateProjectForm() {
 
 ## Tables
 
-- Use `mantine-react-table` as the default library for new data-table work
+- Use `mantine-react-table` v2 beta as the current default library for new data-table work in this project
+- Follow the official v2 docs at `https://v2.mantine-react-table.com` for API shape and setup
+- Install the current table stack with `mantine-react-table@beta` and its direct peer dependencies used by this project: `@mantine/dates`, `@tabler/icons-react`, `clsx`, and `dayjs`
+- Do not add a direct `@tanstack/react-table` dependency just to use `mantine-react-table`; the wrapped table package already brings the TanStack table dependency it uses
 - Any place that needs a data table should use the project's wrapped table component or adapter instead of wiring `mantine-react-table` directly in the page
 - If the required wrapper does not exist yet, create or extend the project table wrapper first, then use that wrapper in the page
+- Put stable shared table wrappers under `src/shared/components/data-table/` unless the project later adopts a different shared location
 - Centralize shared table styling and behavior in the wrapper, including pagination, loading states, empty states, row actions, selection behavior, and similar concerns
 - Do not introduce a different table abstraction or second table library for the same class of UI without agreement
 

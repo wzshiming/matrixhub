@@ -36,12 +36,18 @@ Owns:
 - feature-local components
 - feature-local hooks, types, and utils
 - page UI and business composition outside the route layer
+- stable shared feature UI that is reused across multiple areas but does not justify a new top-level layer yet, such as common table adapters under `src/shared/*`
 
 Suggested structure should grow only when needed. Do not force every folder to exist upfront:
 
 ```text
 src/features/{feature}/
 ├── pages/
+├── components/
+├── hooks/
+├── types/
+└── utils/
+src/shared/
 ├── components/
 ├── hooks/
 ├── types/
