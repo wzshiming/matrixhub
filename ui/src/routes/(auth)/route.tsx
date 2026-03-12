@@ -191,6 +191,12 @@ function AccountMenu() {
 }
 
 function AppLayout() {
+  const matchRoute = useMatchRoute()
+  const isAdminRoute = !!matchRoute({
+    to: '/admin',
+    fuzzy: true,
+  })
+
   return (
     <AppShell
       mode="static"
@@ -228,12 +234,12 @@ function AppLayout() {
       >
         <Box
           style={{
-            width: '86vw',
+            width: isAdminRoute ? '100%' : '86vw',
             height: '100%',
-            maxWidth: '1760px',
-            minWidth: '1100px',
-            margin: '0 auto',
-            padding: '0 32px',
+            maxWidth: isAdminRoute ? 'none' : '1760px',
+            minWidth: isAdminRoute ? '0' : '1100px',
+            margin: isAdminRoute ? 0 : '0 auto',
+            padding: isAdminRoute ? 0 : '0 32px',
             boxSizing: 'content-box',
           }}
         >
