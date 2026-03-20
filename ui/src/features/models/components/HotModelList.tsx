@@ -1,5 +1,5 @@
 import {
-  Box, Collapse, Group, Text,
+  Box, Collapse, Group, Text, UnstyledButton,
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { useTranslation } from 'react-i18next'
@@ -28,9 +28,9 @@ export function HotModelList() {
           {t('model.recommend') }
         </Text>
         {hotModels.length > 4 && (
-          <Text component="button" type="button" onClick={toggle} fz="sm">
+          <UnstyledButton onClick={toggle} fz="sm">
             {t('model.viewMore')}
-          </Text>
+          </UnstyledButton>
         )}
       </Group>
       <Box miw={780} maw={1380}>

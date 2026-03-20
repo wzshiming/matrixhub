@@ -32,8 +32,6 @@ export function BaseFilterPanel({
         value={keyword}
         placeholder={searchPlaceholder}
         onChange={setKeyword}
-        radius="lg"
-        size="xs"
         w="100%"
       />
 

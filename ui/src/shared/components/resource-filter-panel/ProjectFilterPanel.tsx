@@ -18,12 +18,29 @@ interface ProjectCardProps {
   onSelect?: (option: string) => void
 }
 
+const PROJECT_TYPE_BADGE_CONFIG: Partial<Record<ProjectType, {
+  color: string
+  labelKey: string
+}>> = {
+  [ProjectType.PROJECT_TYPE_PUBLIC]: {
+    color: 'teal',
+    labelKey: 'projects.type.public',
+  },
+  [ProjectType.PROJECT_TYPE_PRIVATE]: {
+    color: 'yellow',
+    labelKey: 'projects.type.private',
+  },
+}
+
 function ProjectCard({
   option,
   selected = false,
   onSelect,
 }: ProjectCardProps) {
   const { t } = useTranslation()
+  const badgeConfig = option.type
+    ? PROJECT_TYPE_BADGE_CONFIG[option.type]
+    : undefined
 
   return (
     <UnstyledButton
@@ -32,7 +49,8 @@ function ProjectCard({
     >
       <Paper
         radius="md"
-        p="sm"
+        px="sm"
+        pt="sm"
         pb={8}
         withBorder
         style={{
@@ -56,18 +74,20 @@ function ProjectCard({
           >
             {option.name}
           </Text>
-          <Badge
-            variant="light"
-            radius="xl"
-            size="xs"
-            px="sm"
-          >
-            {
-              option.type === ProjectType.PROJECT_TYPE_PUBLIC
-                ? t('projects.type.public')
-                : t('projects.type.private')
-            }
-          </Badge>
+          {badgeConfig
+            ? (
+                <Badge
+                  variant="light"
+                  radius="xl"
+                  size="xs"
+                  px="sm"
+                  color={badgeConfig.color}
+                  flex="0 0 auto"
+                >
+                  {t(badgeConfig.labelKey)}
+                </Badge>
+              )
+            : null}
         </Group>
 
         <Group
@@ -79,6 +99,7 @@ function ProjectCard({
           <Group
             gap={8}
             wrap="nowrap"
+            miw={0}
           >
             <Text component="span" c="dimmed" size="sm" lh={1} flex="0 0 auto">
               {t('projects.modelCount')}
@@ -90,6 +111,7 @@ function ProjectCard({
           <Group
             gap={8}
             wrap="nowrap"
+            miw={0}
           >
             <Text component="span" c="dimmed" size="sm" lh={1} flex="0 0 auto">
               {t('projects.datasetCount')}

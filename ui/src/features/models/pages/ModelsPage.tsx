@@ -19,6 +19,7 @@ export function ModelsPage() {
           flex={24}
           wrap="nowrap"
           gap="xl"
+          miw={0}
         >
           {/* TODO: 1760px parent width cannot support maxWidth 400 */}
           <Box

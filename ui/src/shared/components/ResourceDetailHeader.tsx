@@ -66,7 +66,7 @@ export function ResourceDetailHeader({
       </Group>
 
       {badges && badges?.length > 0 && (
-        <Group gap={8} mb={12} wrap="nowrap">
+        <Group gap={8} mb="sm" wrap="nowrap">
           {badges.map(badge => (
             <Fragment key={badge.key}>
               {badge.content ?? (

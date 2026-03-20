@@ -7,8 +7,8 @@ import { ModelsPage } from '@/features/models/pages/ModelsPage'
 
 const modelsSearchSchema = z.object({
   q: z.string().transform(v => v.trim()).optional(),
-  sort: z.literal('updatedAt').optional(),
-  order: z.enum(['asc', 'desc']).optional(),
+  sort: z.literal('updatedAt').optional().catch('updatedAt'),
+  order: z.enum(['asc', 'desc']).optional().catch('desc'),
   page: z.coerce.number().int().positive().optional(),
   task: z.string().optional(),
   library: z.string().optional(),
